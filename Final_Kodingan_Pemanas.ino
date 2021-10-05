@@ -1,5 +1,5 @@
 /*silakan copy paste guna project NON KOMERSIAL anda
-namun jangan lupa sertakan sumber sebagai bentuk apresiasi penulis 
+namun jangan lupa sertakan sumber sebagai bentuk apresiasi, 
 ditulis oleh hendrik Politeknik Negeri ATK Yogyakarta pada tahun 2021*/
 
 // Library yang digunakan
@@ -10,11 +10,6 @@ ditulis oleh hendrik Politeknik Negeri ATK Yogyakarta pada tahun 2021*/
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <Blynk.h>>
-#include <UniversalTelegramBot.h>
-
-#include <SoftwareSerial.h>
-#include <SerialESP8266wifi.h>
-#define BOT_TOKEN "1874729604:AAEH-BSmqte10n704okLykWwbCSuh2XrqNy"
 
 int relayPin = 30; //relay on/off pemanas berdasar suhu
 int mainRelayPin = 40; // relay catu daya ke pemanas
@@ -22,21 +17,21 @@ int mainRelayPin = 40; // relay catu daya ke pemanas
 LiquidCrystal_I2C lcd(0x27,16,2);
 
 //===================== Pengaturan koneksi ke wifi ===============================
-char auth[] = "   "; //masukan token disini
-char ssid[] = "  "; //masukan nama wifi disini 
-char pass[] = "   "; //pasword wifimu
+char auth[] = "     "; 
+char ssid[] = "   ";  
+char pass[] = "   "; 
 #define EspSerial Serial3
-#define ESP8266_BAUD 115200  //serial untuk komunikasi berapa
+#define ESP8266_BAUD 115200 
 ESP8266 wifi(&EspSerial);
 
 //============== peletakan sensor suhu di pin 24 arduino mega ===============
 
-#define ONE_WIRE_BUS 24 //pin sensor suhu di digital 
+#define ONE_WIRE_BUS 24 
 OneWire oneWire(ONE_WIRE_BUS);  
 
 //============= menghubungkan ke library =================
 DallasTemperature sensors(&oneWire);
-float celcius; // tipe data yang digunakan float
+float celcius; 
 
 void setup(void)
 {
@@ -46,8 +41,8 @@ void setup(void)
   pinMode(mainRelayPin,OUTPUT); 
   digitalWrite(mainRelayPin, HIGH);
   delay(10);
-  sensors.begin();  // perintah memulai sensor
-  Serial.begin(115200); //menggunakan 2 serial karena board yang digunakan arduino mega + include esp 8622
+  sensors.begin(); 
+  Serial.begin(115200); 
   Serial3.begin(115200);
   delay(10);
   EspSerial.begin(ESP8266_BAUD);
@@ -59,8 +54,8 @@ void setup(void)
 
 void loop(void)
 { 
-  Blynk.run(); //perintah menjalankan Blynk
-  sensors.requestTemperatures();  //mengirim perintah get temperatures
+  Blynk.run(); 
+  sensors.requestTemperatures();  
 //print suhu dalam satuan Celsius
   Serial.print("Temperature: ");
   Serial.print(sensors.getTempCByIndex(0));
@@ -74,7 +69,7 @@ void loop(void)
   lcd.print("C");
   
 //===================opsi jika ingin ditampilkan dalam fahrenheit======================
-  //print suhu dalam satuan Fahrenheit (jika ingin di print pada F)
+  //jika ingin di print pada F
   //Serial.print((sensors.getTempCByIndex(0) * 9.0) / 5.0 + 32.0);
   //Serial.print((char)176);//shows degrees character
  // Serial.println("F");
@@ -87,17 +82,17 @@ void loop(void)
 // ============ setting on/off relay ===========
   
   if(sensors.getTempCByIndex(0) >= 75){
-    digitalWrite (relayPin, HIGH); //relay mati saat suhu mencapai target
+    digitalWrite (relayPin, HIGH); 
     Serial.println("RELAY OFF!");
     lcd.setCursor(0,1);
-    lcd.print("RELAY OFF!  ");
+    lcd.print("RELAY OFF!");
   }
 
   if(sensors.getTempCByIndex(0) <= 72){
-    digitalWrite (relayPin, LOW);  //relay menyala saat suhu dibawah target
+    digitalWrite (relayPin, LOW); 
     Serial.println("RELAY ON!");
     lcd.setCursor(0,1);
-    lcd.print("RELAY ON!      ");    
+    lcd.print("RELAY ON!");    
   }
  
 //---------suhu air dijaga 72-75 derajad celcius-----------
