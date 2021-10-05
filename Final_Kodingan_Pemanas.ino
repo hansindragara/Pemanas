@@ -22,9 +22,9 @@ int mainRelayPin = 40; // relay catu daya ke pemanas
 LiquidCrystal_I2C lcd(0x27,16,2);
 
 //===================== Pengaturan koneksi ke wifi ===============================
-char auth[] = "lrrS5lK5qWz0wPQsZj5ukYzPEsj41uMF"; //masukan token disini
-char ssid[] = "propeople"; //masukan nama wifi disini 
-char pass[] = "123456777"; //pasword wifimu
+char auth[] = "   "; //masukan token disini
+char ssid[] = "  "; //masukan nama wifi disini 
+char pass[] = "   "; //pasword wifimu
 #define EspSerial Serial3
 #define ESP8266_BAUD 115200  //serial untuk komunikasi berapa
 ESP8266 wifi(&EspSerial);
